@@ -15,8 +15,8 @@ const ProductPopup = ({ product, setSelectedProductId }) => {
           <h2 className="text-2xl text-slate-100">{product.title}</h2>
           <p className="text-lg">{product.category}</p>
           <p className="text-md text-slate-300">{product.description}</p>
-          <p className="flex gap-10 text-lg">
-            <span> {product.rating.rate}</span>
+          <p className="flex gap-10 text-lg font-semibold">
+            <span className="text-yellow-300"> {product.rating.rate}</span>
             <span>{product.rating.count}</span>
           </p>
         </div>
