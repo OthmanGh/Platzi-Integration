@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Product from './components/Product';
 import ProductPopup from './components/ProductPopup';
+import LoadingProduct from './components/LoadingProduct';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -10,10 +11,6 @@ const App = () => {
   const [selectedProductId, setSelectedProductId] = useState(null);
 
   const selectedProduct = products.find((product) => product.id === selectedProductId);
-
-  console.log(selectedProduct);
-
-  console.log(products);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,16 +31,48 @@ const App = () => {
     });
   }, []);
 
+  const handleDragStart = (e, productId) => {
+    e.dataTransfer.setData('text/string', productId.toString());
+  };
+
+  const handleDragEnd = (e, productId) => {
+    e.dataTransfer.clearData();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const productId = e.dataTransfer.getData('text/plain');
+
+    setProducts((prevProducts) => {
+      return prevProducts.map((product) => {
+        if (product.id === +productId) {
+          return { ...product };
+        }
+
+        return product;
+      });
+    });
+  };
+
   return (
     <div className="flex flex-col gap-10 p-10">
       <h1 className="text-3xl font-semibold mb-4 text-zinc-700">Platzi Api Intergration</h1>
 
       {isloading ? (
-        'Loading Products....'
+        <LoadingProduct />
       ) : (
         <div className="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1 gap-10 relative">
           {products.map((product) => {
-            return <Product product={product} key={product.id} setSelectedProductId={setSelectedProductId} />;
+            return (
+              <div
+                key={product.id}
+                onDragStart={(e, productId) => handleDragStart(e, productId)}
+                onDragEnd={(e, productId) => handleDragEnd(e, productId)}
+                onDrop={handleDrop}
+              >
+                <Product product={product} setSelectedProductId={setSelectedProductId} />
+              </div>
+            );
           })}
           {selectedProductId && (
             <>
