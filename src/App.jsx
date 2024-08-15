@@ -1,9 +1,7 @@
+// API : https://fakestoreapi.com/products
+
 const App = () => {
-  return (
-    <div>
-      <h1>Platzi Api Intergration</h1>
-    </div>
-  );
+  return <h1 className="text-3xl">Platzi Api Intergration</h1>;
 };
 
 export default App;
