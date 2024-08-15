@@ -4,7 +4,7 @@ const ProductPopup = ({ product, setSelectedProductId }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center bg-black bg-opacity-75 z-10 p-10 text-white">
       <IoMdCloseCircle
-        className="absolute top-20 right-20 rounded-full text-3xl text-slate-200 hover:text-slate-50 transition-all duration-500 cursor-pointer z-40"
+        className="absolute top-5 right-20 rounded-full text-3xl text-gray-500 hover:text-slate-50 transition-all duration-500 cursor-pointer z-40"
         onClick={() => setSelectedProductId(null)}
       />
 
@@ -16,7 +16,9 @@ const ProductPopup = ({ product, setSelectedProductId }) => {
           <p className="text-lg">{product.category}</p>
           <p className="text-md text-slate-300">{product.description}</p>
           <p className="flex gap-10 text-lg font-semibold">
-            <span className="text-yellow-300"> {product.rating.rate}</span>
+            <span className="text-yellow-300">
+              {product.rating.rate} <span className="text-gray-400">/5</span>
+            </span>
             <span>{product.rating.count}</span>
           </p>
         </div>

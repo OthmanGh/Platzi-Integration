@@ -74,6 +74,7 @@ const App = () => {
               </div>
             );
           })}
+
           {selectedProductId && (
             <>
               <ProductPopup product={selectedProduct} setSelectedProductId={setSelectedProductId} />
